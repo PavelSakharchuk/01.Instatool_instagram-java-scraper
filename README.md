@@ -61,7 +61,7 @@ Released as [com.github.igor-suhorukov:instagramscraper:2.2](http://repo1.maven.
 
 ### How to use development version of Instagram Java scraper ###
 
-Read more info on [jitpack page of project](https://jitpack.io/#com.github.postaddictme/instagram-java-scraper).
+Read more info on [jitpack page of project](https://jitpack.io/#com.github.PavelSakharchuk/instagram-java-scraper).
 Open "Commit" tab and select revision by commit hash. Just open Gradle or Maven tab copy artifact info and place it with dendency management repository in your project build configuration
 
 ### IDE lombok plugin ###
