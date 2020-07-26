@@ -19,6 +19,7 @@ import me.postaddict.instagram.scraper.model.Tag;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Collection;
@@ -39,7 +40,7 @@ public class AuthenticatedInstaTest {
 
     @BeforeClass
     public static void setUp() {
-        InstaClient instaClient = new InstaClientFactory(InstaClientFactory.InstaClientType.AUTHENTICATED).getClient();
+        InstaClient instaClient = new InstaClientFactory(InstaClient.InstaClientType.AUTHENTICATED).getClient();
         instagram = new Instagram(instaClient);
     }
 
@@ -160,6 +161,7 @@ public class AuthenticatedInstaTest {
     }
 
     @Test
+    @Ignore
     public void testPreviewComments() throws Exception {
         Media media = instagram.getMediaByCode("");
         LOGGER.info(media);
@@ -174,37 +176,44 @@ public class AuthenticatedInstaTest {
     }
 
     @Test
+    @Ignore
     public void testLikeMediaByCode() throws Exception {
         instagram.likeMediaByCode("PASTE_HERE_MEDIA_CODE");
     }
 
     @Test
+    @Ignore
     public void testUnlikeMediaByCode() throws Exception {
         instagram.unlikeMediaByCode("PASTE_HERE_MEDIA_CODE");
     }
 
     @Test
+    @Ignore
     public void testFollowAccountByUsername() throws Exception {
         instagram.followAccountByUsername("PASTE_HERE_USERNAME");
     }
 
     @Test
+    @Ignore
     public void testUnfollowAccountByUsername() throws Exception {
         instagram.unfollowAccountByUsername("PASTE_HERE_USERNAME");
     }
 
     @Test
+    @Ignore
     public void testAddMediaComment() throws Exception {
         ActionResponse<Comment> comment = instagram.addMediaComment("PASTE_HERE_MEDIA_CODE", "PASTE_COMMENT_TEXT");
         LOGGER.info(comment);
     }
 
     @Test
+    @Ignore
     public void testDeleteMediaComment() throws Exception {
         instagram.deleteMediaComment("PASTE_HERE_MEDIA_CODE", "PASTE_COMMENT_ID");
     }
 
     @Test
+    @Ignore
     public void testGetMediaLikes() throws Exception {
         PageObject<Account> likes = instagram.getMediaLikes("BaKLiFugkQa", 2);
         assertThat(likes).isNotNull();

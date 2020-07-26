@@ -31,7 +31,7 @@ public class AnonymousInstaTest {
 
     @BeforeClass
     public static void setUp() {
-        InstaClient instaClient = new InstaClientFactory(InstaClientFactory.InstaClientType.ANONYMOUS).getClient();
+        InstaClient instaClient = new InstaClientFactory(InstaClient.InstaClientType.ANONYMOUS).getClient();
         instagram = new Instagram(instaClient);
     }
 

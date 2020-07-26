@@ -19,7 +19,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class InstaClientFactory {
-    private final InstaClientType instaClientType;
+    private final InstaClient.InstaClientType instaClientType;
     private OkHttpClient httpClient;
 
     private final InstaClient instaClient;
@@ -27,7 +27,7 @@ public class InstaClientFactory {
 
     private static final Logger LOGGER = Logger.getInstance();
 
-    public InstaClientFactory(InstaClientType instaClientType) {
+    public InstaClientFactory(InstaClient.InstaClientType instaClientType) {
         this.instaClientType = instaClientType;
         this.instaClient = new InstaClient(this.httpClient);
         this.instagram = new Instagram(instaClient);
@@ -84,7 +84,7 @@ public class InstaClientFactory {
         try {
             instagram.basePage();
 
-            if (instaClientType == InstaClientType.AUTHENTICATED) {
+            if (instaClientType == InstaClient.InstaClientType.AUTHENTICATED) {
                 Credentials credentials = getCredentials();
                 Thread.sleep(10000L);
                 instagram.login(credentials.getLogin(), credentials.getEncPassword());
@@ -96,30 +96,6 @@ public class InstaClientFactory {
             throw new InstagramException(message, ErrorType.UNKNOWN_ERROR);
         }
         return instagram;
-    }
-
-    public enum InstaClientType {
-        /**
-         * Client without cookies
-         */
-        STATELESS,
-        /**
-         * Client with cookies, but without login
-         */
-        ANONYMOUS,
-        /**
-         * Client with login
-         */
-        AUTHENTICATED;
-
-        private static final List<InstaClientType> TYPE_LIST =
-                Collections.unmodifiableList(Arrays.asList(values()));
-        private static final int SIZE = TYPE_LIST.size();
-        private static final Random RANDOM = new Random();
-
-        public static InstaClientType randomClientType() {
-            return TYPE_LIST.get(RANDOM.nextInt(SIZE));
-        }
     }
 
     public enum UserAgent {

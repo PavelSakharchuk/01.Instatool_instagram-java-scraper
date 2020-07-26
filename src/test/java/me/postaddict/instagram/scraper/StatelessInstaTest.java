@@ -24,7 +24,7 @@ public class StatelessInstaTest {
 
     @BeforeClass
     public static void setUp() {
-        InstaClient instaClient = new InstaClientFactory(InstaClientFactory.InstaClientType.STATELESS).getClient();
+        InstaClient instaClient = new InstaClientFactory(InstaClient.InstaClientType.STATELESS).getClient();
         instagram = new Instagram(instaClient);
     }
 
