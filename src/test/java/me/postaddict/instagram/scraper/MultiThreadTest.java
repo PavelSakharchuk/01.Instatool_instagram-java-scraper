@@ -5,6 +5,7 @@ import me.postaddict.instagram.scraper.client.InstaClientFactory;
 import me.postaddict.instagram.scraper.model.Media;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -21,11 +22,12 @@ public class MultiThreadTest {
 
     @BeforeClass
     public static void setUp() {
-        InstaClient instaClient = new InstaClientFactory(InstaClientFactory.InstaClientType.ANONYMOUS).getClient();
+        InstaClient instaClient = new InstaClientFactory(InstaClient.InstaClientType.ANONYMOUS).getClient();
         instagram = new Instagram(instaClient);
     }
 
     @Test
+    @Ignore
     public void multiThreadTest() throws InterruptedException, ExecutionException {
         String requests = "trump\n" +
                 "obama\n" +

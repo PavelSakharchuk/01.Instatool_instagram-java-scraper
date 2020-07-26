@@ -24,7 +24,7 @@ public class RandomInstaTest {
 
     @BeforeClass
     public static void setUp() {
-        InstaClient instaClient = new InstaClientFactory(InstaClientFactory.InstaClientType.randomClientType()).getClient();
+        InstaClient instaClient = new InstaClientFactory(InstaClient.InstaClientType.randomClientType()).getClient();
         instagram = new Instagram(instaClient);
     }
 
@@ -45,11 +45,11 @@ public class RandomInstaTest {
 
     @Test
     public void testGetRandomClient() {
-        InstaClient instaClient = new InstaClientFactory(InstaClientFactory.InstaClientType.randomClientType()).getClient();
-        instaClient = new InstaClientFactory(InstaClientFactory.InstaClientType.randomClientType()).getClient();
-        instaClient = new InstaClientFactory(InstaClientFactory.InstaClientType.randomClientType()).getClient();
-        instaClient = new InstaClientFactory(InstaClientFactory.InstaClientType.randomClientType()).getClient();
-        instaClient = new InstaClientFactory(InstaClientFactory.InstaClientType.randomClientType()).getClient();
+        InstaClient instaClient = new InstaClientFactory(InstaClient.InstaClientType.randomClientType()).getClient();
+        instaClient = new InstaClientFactory(InstaClient.InstaClientType.randomClientType()).getClient();
+        instaClient = new InstaClientFactory(InstaClient.InstaClientType.randomClientType()).getClient();
+        instaClient = new InstaClientFactory(InstaClient.InstaClientType.randomClientType()).getClient();
+        instaClient = new InstaClientFactory(InstaClient.InstaClientType.randomClientType()).getClient();
     }
 
 }
