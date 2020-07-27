@@ -7,16 +7,13 @@ import okhttp3.Response;
 import java.io.IOException;
 
 public class FakeBrowserInterceptor implements Interceptor {
-
     private final String userAgent;
+
 
     public FakeBrowserInterceptor(String userAgent) {
         this.userAgent = userAgent;
     }
 
-    public String getUserAgent() {
-        return userAgent;
-    }
 
     @Override
     public Response intercept(Chain chain) throws IOException {

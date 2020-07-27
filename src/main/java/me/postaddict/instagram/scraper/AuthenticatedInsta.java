@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public abstract class AuthenticatedInsta extends AnonymousInsta {
 
-
     public AuthenticatedInsta(InstaClient instaClient) {
         super(instaClient);
     }

@@ -1,6 +1,8 @@
 package me.postaddict.instagram.scraper;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
+import me.postaddict.instagram.scraper.client.InstaClientFactory;
+import me.postaddict.instagram.scraper.exception.InstagramException;
 import me.postaddict.instagram.scraper.mapper.Mapper;
 import me.postaddict.instagram.scraper.mapper.ModelMapper;
 import me.postaddict.instagram.scraper.request.DefaultDelayHandler;
@@ -19,9 +21,9 @@ import java.nio.charset.StandardCharsets;
 
 public abstract class BasicInsta {
     private static final Logger LOGGER = Logger.getInstance();
-    protected final InstaClient instaClient;
     protected final DelayHandler delayHandler = new DefaultDelayHandler();
     protected final Mapper mapper = new ModelMapper();
+    protected InstaClient instaClient;
 
 
     public BasicInsta(InstaClient instaClient) {
@@ -86,7 +88,20 @@ public abstract class BasicInsta {
         LOGGER.info(request.url());
         LOGGER.debug(String.format("headers:%n%s", request.headers()));
 
-        Response response = instaClient.getHttpClient().newCall(request).execute();
+        Response response = null;
+        // TODO: p.saharchuk: 27.07.2020: Move to properties and refactoring
+        int i = 0;
+        do {
+            try {
+                response = instaClient.getHttpClient().newCall(request).execute();
+            } catch (InstagramException e) {
+                if (e.getErrorType().equals(ErrorType.RATE_LIMITED)) {
+                    InstaClient.InstaClientType instaClientType = this.instaClient.getInstaClientType();
+                    this.instaClient = new InstaClientFactory(instaClientType).getClient();
+                }
+            }
+        } while (i++ < 5 && !response.isSuccessful());
+
         LOGGER.debug("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         delayHandler.onEachRequest();
         return response;

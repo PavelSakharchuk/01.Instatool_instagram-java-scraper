@@ -15,6 +15,8 @@ import java.util.Random;
 public class InstaClient {
 
     private OkHttpClient httpClient;
+    private InstaClientType instaClientType;
+
     /**
      * csrf_token
      */
@@ -26,7 +28,7 @@ public class InstaClient {
 
 
     public InstaClient(OkHttpClient httpClient) {
-        this(httpClient, "", "");
+        this(httpClient, null, "", "");
     }
 
 
