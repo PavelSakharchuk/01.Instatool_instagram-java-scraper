@@ -7,16 +7,11 @@ import me.postaddict.instagram.scraper.cookie.DefaultCookieJar;
 import me.postaddict.instagram.scraper.exception.InstagramAuthException;
 import me.postaddict.instagram.scraper.interceptor.ErrorInterceptor;
 import me.postaddict.instagram.scraper.interceptor.FakeBrowserInterceptor;
-import me.postaddict.instagram.scraper.interceptor.UserAgents;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class RandomInstaTest {
 
@@ -34,7 +29,7 @@ public class RandomInstaTest {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addNetworkInterceptor(loggingInterceptor)
-                .addInterceptor(new FakeBrowserInterceptor(UserAgents.OSX_CHROME))
+                .addInterceptor(new FakeBrowserInterceptor(InstaClientFactory.UserAgent.randomUserAgent().getValue()))
                 .addInterceptor(new ErrorInterceptor())
                 .cookieJar(new DefaultCookieJar(new CookieHashSet()))
                 .build();
