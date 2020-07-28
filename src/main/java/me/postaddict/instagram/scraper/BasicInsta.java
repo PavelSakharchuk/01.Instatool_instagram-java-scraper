@@ -95,12 +95,13 @@ public abstract class BasicInsta {
             try {
                 response = instaClient.getHttpClient().newCall(request).execute();
             } catch (InstagramException e) {
+                e.printStackTrace();
                 if (e.getErrorType().equals(ErrorType.RATE_LIMITED)) {
                     InstaClient.InstaClientType instaClientType = this.instaClient.getInstaClientType();
                     this.instaClient = new InstaClientFactory(instaClientType).getClient();
                 }
             }
-        } while (i++ < 5 && !response.isSuccessful());
+        } while (i++ < 5 && response == null);
 
         LOGGER.debug("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         delayHandler.onEachRequest();
