@@ -18,8 +18,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+
 public class InstaClientFactory {
-    private final InstaClient.InstaClientType instaClientType;
+    private InstaClient.InstaClientType instaClientType;
     private OkHttpClient httpClient;
 
     private final InstaClient instaClient;
@@ -30,6 +31,7 @@ public class InstaClientFactory {
     public InstaClientFactory(InstaClient.InstaClientType instaClientType) {
         this.instaClientType = instaClientType;
         this.instaClient = new InstaClient(this.httpClient);
+        this.instaClient.setInstaClientType(instaClientType);
         this.instagram = new Instagram(instaClient);
     }
 
@@ -38,7 +40,7 @@ public class InstaClientFactory {
         // TODO: 08.05.2020: Move to config
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
 
-        LOGGER.info(String.format("Initial '%s' Instagram Client...", instaClientType));
+        LOGGER.info(String.format("Initial '%s' Instagram Client...", this.instaClient.getInstaClientType()));
         UserAgent userAgent = UserAgent.randomUserAgent();
         LOGGER.info(String.format("User Agent: [%s] %s", userAgent, userAgent.userAgentValue));
 
@@ -116,6 +118,10 @@ public class InstaClientFactory {
 
         UserAgent(String userAgentValue) {
             this.userAgentValue = userAgentValue;
+        }
+
+        public String getValue() {
+            return userAgentValue;
         }
 
         public static UserAgent randomUserAgent() {

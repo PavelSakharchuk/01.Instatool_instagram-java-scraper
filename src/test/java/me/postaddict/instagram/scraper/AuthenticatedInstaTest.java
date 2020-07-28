@@ -7,7 +7,6 @@ import me.postaddict.instagram.scraper.cookie.DefaultCookieJar;
 import me.postaddict.instagram.scraper.exception.InstagramAuthException;
 import me.postaddict.instagram.scraper.interceptor.ErrorInterceptor;
 import me.postaddict.instagram.scraper.interceptor.FakeBrowserInterceptor;
-import me.postaddict.instagram.scraper.interceptor.UserAgents;
 import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.ActionResponse;
 import me.postaddict.instagram.scraper.model.ActivityFeed;
@@ -50,7 +49,7 @@ public class AuthenticatedInstaTest {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addNetworkInterceptor(loggingInterceptor)
-                .addInterceptor(new FakeBrowserInterceptor(UserAgents.OSX_CHROME))
+                .addInterceptor(new FakeBrowserInterceptor(InstaClientFactory.UserAgent.randomUserAgent().getValue()))
                 .addInterceptor(new ErrorInterceptor())
                 .cookieJar(new DefaultCookieJar(new CookieHashSet()))
                 .build();
