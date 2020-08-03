@@ -2,6 +2,7 @@ package me.postaddict.instagram.scraper;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.client.InstaClientFactory;
+import me.postaddict.instagram.scraper.client.User;
 import me.postaddict.instagram.scraper.exception.InstagramException;
 import me.postaddict.instagram.scraper.mapper.Mapper;
 import me.postaddict.instagram.scraper.mapper.ModelMapper;
@@ -20,6 +21,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 
 public abstract class BasicInsta {
     private static final Logger LOGGER = Logger.getInstance();
@@ -92,19 +94,28 @@ public abstract class BasicInsta {
 
         Response response = null;
         // TODO: p.saharchuk: 27.07.2020: Move to properties and refactoring
-        int i = 0;
+        final int RETRY_LIMIT = 5;
+        int retry = 0;
         do {
             try {
                 response = instaClient.getHttpClient().newCall(request).execute();
+                if (decodeUrl(request.url()).equals("https://www.instagram.com/accounts/login/ajax/")) {
+                    throw new InstagramException("Rate limited", ErrorType.RATE_LIMITED);
+                }
             } catch (InstagramException e) {
-                LOGGER.warn(String.format("'%s'[%s] Exception for %s", e.getErrorType(), i, instaClient.getCredentialUser()));
+                retry++;
+                LOGGER.warn(String.format("'%s'[%s] Exception for %s", e.getErrorType(), retry, instaClient.getCredentialUser()));
                 e.printStackTrace();
                 if (e.getErrorType().equals(ErrorType.RATE_LIMITED)) {
                     InstaClient.InstaClientType instaClientType = this.instaClient.getInstaClientType();
+
+                    User user = this.instaClient.getCredentialUser();
+                    user.setRateLimitedDate(LocalDateTime.now());
+
                     this.instaClient = new InstaClientFactory(instaClientType).getClient();
                 }
             }
-        } while (i++ < 5 && response == null);
+        } while (retry < RETRY_LIMIT && response == null);
 
         LOGGER.debug("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         delayHandler.onEachRequest();

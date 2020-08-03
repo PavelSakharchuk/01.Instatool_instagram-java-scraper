@@ -1,6 +1,8 @@
 package me.postaddict.instagram.scraper.client;
 
 import lombok.Data;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
@@ -36,5 +38,14 @@ public class User implements Comparable<User> {
     @Override
     public int compareTo(User user) {
         return this.rateLimitedDate.compareTo(user.getRateLimitedDate());
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("login", login)
+                .append("password", password)
+                .append("rateLimitedDate", rateLimitedDate)
+                .toString();
     }
 }

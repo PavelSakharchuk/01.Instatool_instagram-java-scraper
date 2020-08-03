@@ -13,9 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Login and password which stores in external file. Create a file in PATH which contains login and password
- */
+
 public final class Credentials {
     private static final ThreadLocal<Credentials> instancePull = ThreadLocal.withInitial(() -> null);
 
