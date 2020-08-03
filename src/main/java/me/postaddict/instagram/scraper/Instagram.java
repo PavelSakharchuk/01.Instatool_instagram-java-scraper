@@ -1,6 +1,7 @@
 package me.postaddict.instagram.scraper;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
+import me.postaddict.instagram.scraper.client.User;
 import me.postaddict.instagram.scraper.exception.InstagramAuthException;
 import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.ActionResponse;
@@ -63,15 +64,17 @@ public class Instagram extends AuthenticatedInsta {
     }
 
     @Override
-    public void login(String username, String encPassword) throws IOException {
-        if (username == null || encPassword == null) {
+    public void login(User user) throws IOException {
+        String userName = user.getLogin();
+        String encPassword = user.getEncPassword();
+        if (userName == null || encPassword == null) {
             throw new InstagramAuthException("Specify username and enc_password");
         } else if (instaClient.getCsrfToken().isEmpty()) {
             throw new NullPointerException("Please run before base()");
         }
 
         RequestBody formBody = new FormBody.Builder()
-                .add("username", username)
+                .add("username", userName)
                 .add("enc_password", encPassword)
                 .add("queryParams", "{}")
                 .add("optIntoOneTap", "true")

@@ -27,6 +27,8 @@ public class InstaClientFactory {
     private Instagram instagram;
 
     private static final Logger LOGGER = Logger.getInstance();
+    private static final Credentials CREDENTIALS = Credentials.getInstance();
+
 
     public InstaClientFactory(InstaClient.InstaClientType instaClientType) {
         this.instaClientType = instaClientType;
@@ -71,25 +73,19 @@ public class InstaClientFactory {
         return instaClient;
     }
 
-    private Credentials getCredentials() {
-        try {
-            Credentials credentials = new Credentials();
-            LOGGER.info(String.format("User: %s/ %s", credentials.getLogin(), credentials.getPassword()));
-            return new Credentials();
-        } catch (IOException e) {
-            String message = String.format("Can not create credentials:%n%s", e);
-            throw new InstagramException(message, ErrorType.UNKNOWN_ERROR);
-        }
-    }
-
     private Instagram getBasePage() {
         try {
             instagram.basePage();
 
             if (instaClientType == InstaClient.InstaClientType.AUTHENTICATED) {
-                Credentials credentials = getCredentials();
+                User user = CREDENTIALS.getUser();
+                LOGGER.info(String.format("User: %s/ %s", user.getLogin(), user.getPassword()));
+                instaClient.setCredentialUser(user);
+
                 Thread.sleep(10000L);
-                instagram.login(credentials.getLogin(), credentials.getEncPassword());
+                instagram.login(user);
+
+                // TODO: p.sakharchuk: 30.07.2020: Need to check: Is it possible extra
                 instagram.basePage();
             }
 

@@ -2,6 +2,7 @@ package me.postaddict.instagram.scraper;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.client.InstaClientFactory;
+import me.postaddict.instagram.scraper.client.User;
 import me.postaddict.instagram.scraper.cookie.CookieHashSet;
 import me.postaddict.instagram.scraper.cookie.DefaultCookieJar;
 import me.postaddict.instagram.scraper.exception.InstagramAuthException;
@@ -55,7 +56,7 @@ public class AuthenticatedInstaTest {
                 .build();
         Instagram instagramClient = new Instagram(new InstaClient(httpClient));
         instagramClient.basePage();
-        instagramClient.login("1", "2");
+        instagramClient.login(new User("1", "2"));
     }
 
     @Test

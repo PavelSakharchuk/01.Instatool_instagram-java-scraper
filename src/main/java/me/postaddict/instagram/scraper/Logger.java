@@ -16,6 +16,7 @@ public class Logger {
     private static ThreadLocal<String> testIdCache = ThreadLocal.withInitial(() -> null);
     private List<Object> collectionLogs = Collections.synchronizedList(new ArrayList<>());
 
+
     private Logger() {
     }
 
@@ -30,6 +31,7 @@ public class Logger {
             return instancePull.get();
         });
     }
+
 
     /**
      * Logging a step number
