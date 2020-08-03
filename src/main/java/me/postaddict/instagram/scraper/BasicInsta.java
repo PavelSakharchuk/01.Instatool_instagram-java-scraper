@@ -17,6 +17,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 public abstract class BasicInsta {
@@ -85,7 +87,7 @@ public abstract class BasicInsta {
 
     public Response executeHttpRequest(Request request) throws IOException {
         LOGGER.debug("Request >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        LOGGER.info(request.url());
+        LOGGER.info(decodeUrl(request.url()));
         LOGGER.debug(String.format("headers:%n%s", request.headers()));
 
         Response response = null;
@@ -95,6 +97,7 @@ public abstract class BasicInsta {
             try {
                 response = instaClient.getHttpClient().newCall(request).execute();
             } catch (InstagramException e) {
+                LOGGER.debug(String.format("'%s'[%s] Exception for %s", e.getErrorType(), i, instaClient.getCredentialUser()));
                 e.printStackTrace();
                 if (e.getErrorType().equals(ErrorType.RATE_LIMITED)) {
                     InstaClient.InstaClientType instaClientType = this.instaClient.getInstaClientType();
@@ -106,5 +109,19 @@ public abstract class BasicInsta {
         LOGGER.debug("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         delayHandler.onEachRequest();
         return response;
+    }
+
+    /**
+     * Decodes a URL encoded string using `UTF-8`
+     */
+    private static String decodeUrl(HttpUrl uri) {
+        String decodedUrl = String.format("URL can't decoder: %s", uri);
+        String url = uri.toString();
+        try {
+            decodedUrl = URLDecoder.decode(url, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+        }
+        return decodedUrl;
     }
 }
