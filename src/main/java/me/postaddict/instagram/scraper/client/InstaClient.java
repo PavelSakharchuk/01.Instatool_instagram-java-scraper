@@ -16,6 +16,7 @@ public class InstaClient {
 
     private OkHttpClient httpClient;
     private InstaClientType instaClientType;
+    private User credentialUser;
 
     /**
      * csrf_token
@@ -28,7 +29,7 @@ public class InstaClient {
 
 
     public InstaClient(OkHttpClient httpClient) {
-        this(httpClient, null, "", "");
+        this(httpClient, null, null, "", "");
     }
 
 

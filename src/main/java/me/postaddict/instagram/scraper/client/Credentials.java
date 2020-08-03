@@ -2,60 +2,75 @@ package me.postaddict.instagram.scraper.client;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import me.postaddict.instagram.scraper.model.general.User;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.Data;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Login and password which stores in external file. Create a file in PATH which contains login and password
  */
 public final class Credentials {
+    private static final ThreadLocal<Credentials> instancePull = ThreadLocal.withInitial(() -> null);
 
     private static final String PATH = "credentials.json";
-    private final String login;
-    private final String phone;
-    private final String password;
-    private final String encPassword;
+    private List<User> users;
 
-    public Credentials() throws IOException {
+
+    public Credentials() {
         InputStream is = null;
         try {
-            is = getClass().getClassLoader().getResourceAsStream(PATH);
-            if (is == null) {
-                throw new IOException("can't find credentials file");
+            try {
+                is = getClass().getClassLoader().getResourceAsStream(PATH);
+                if (is == null) {
+                    throw new RuntimeException("Can't find credentials file.");
+                }
+                users = new ObjectMapper().registerModule(new JavaTimeModule())
+                        .readValue(is, new TypeReference<List<User>>() {});
+                users.forEach(user -> user.setRateLimitedDate(LocalDateTime.now()));
+            } finally {
+                if (is != null) {
+                    is.close();
+                }
             }
-            ObjectMapper mapper = new ObjectMapper();
-            List<User> users = mapper.readValue(is, new TypeReference<List<User>>() {});
-            Collections.shuffle(users);
-            User user = users.get(0);
-
-            this.login = user.getLogin();
-            this.phone = user.getPhone();
-            this.password = user.getPassword();
-            this.encPassword = user.getEncPassword();
-        } finally {
-            if (is != null) {
-                is.close();
-            }
+        } catch (IOException e) {
+            throw new RuntimeException("Can't read credentials file.");
         }
     }
 
-    public String getLogin() {
-        return this.login;
+    /**
+     * Implementation of the Singleton pattern
+     *
+     * @return Logger instance
+     */
+    public static synchronized Credentials getInstance() {
+        return Optional.ofNullable(instancePull.get()).orElseGet(() -> {
+            instancePull.set(new Credentials());
+            return instancePull.get();
+        });
     }
 
-    public String getPhone() {
-        return this.phone;
-    }
+    public User getUser() {
+        // TODO: p.sakharchuk: 02.08.2020: properties
+        final int RATE_LIMITED_MINUTES = 30;
 
-    public String getPassword() {
-        return this.password;
-    }
+        List<User> filteredUsers = users.stream()
+                .filter(user -> user.getRateLimitedDate().isBefore(LocalDateTime.now().minusMinutes(RATE_LIMITED_MINUTES)))
+                .collect(Collectors.toList());
 
-    public String getEncPassword() {
-        return this.encPassword;
+        if (filteredUsers.isEmpty()) {
+            filteredUsers = users.stream()
+                    .sorted()
+                    .collect(Collectors.toList());
+        } else {
+            Collections.shuffle(filteredUsers);
+        }
+        return filteredUsers.get(0);
     }
 }

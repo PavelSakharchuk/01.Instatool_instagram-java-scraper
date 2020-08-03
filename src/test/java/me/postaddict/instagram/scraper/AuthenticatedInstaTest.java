@@ -2,6 +2,7 @@ package me.postaddict.instagram.scraper;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.client.InstaClientFactory;
+import me.postaddict.instagram.scraper.client.User;
 import me.postaddict.instagram.scraper.cookie.CookieHashSet;
 import me.postaddict.instagram.scraper.cookie.DefaultCookieJar;
 import me.postaddict.instagram.scraper.exception.InstagramAuthException;
@@ -55,7 +56,7 @@ public class AuthenticatedInstaTest {
                 .build();
         Instagram instagramClient = new Instagram(new InstaClient(httpClient));
         instagramClient.basePage();
-        instagramClient.login("1", "2");
+        instagramClient.login(new User("1", "2"));
     }
 
     @Test
@@ -63,7 +64,7 @@ public class AuthenticatedInstaTest {
         Account account = instagram.getAccountByUsername("kevin");
         assertEquals("kevin", account.getUsername());
         assertTrue(checkAccount(account));
-        LOGGER.info(account);
+        LOGGER.debug(account);
     }
 
     @Test
@@ -71,7 +72,7 @@ public class AuthenticatedInstaTest {
         Tag tag = instagram.getMediasByTag("corgi");
         assertEquals("corgi", tag.getName());
         assertTrue(checkTag(tag));
-        LOGGER.info(tag);
+        LOGGER.debug(tag);
     }
 
     @Test
@@ -82,7 +83,7 @@ public class AuthenticatedInstaTest {
         for (Media media : mediaList) {
             assertTrue(checkMedia(media));
         }
-        LOGGER.info(mediaList);
+        LOGGER.debug(mediaList);
     }
 
     @Test
@@ -90,7 +91,7 @@ public class AuthenticatedInstaTest {
         Media media = instagram.getMediaByUrl("https://www.instagram.com/p/BHaRdodBouH");
         assertEquals("kevin", media.getOwner().getUsername());
         assertTrue(checkMedia(media));
-        LOGGER.info(media);
+        LOGGER.debug(media);
     }
 
     @Test
@@ -98,7 +99,7 @@ public class AuthenticatedInstaTest {
         Media media = instagram.getMediaByCode("BHaRdodBouH");
         assertEquals("kevin", media.getOwner().getUsername());
         assertTrue(checkMedia(media));
-        LOGGER.info(media);
+        LOGGER.debug(media);
     }
 
     @Test
@@ -109,7 +110,7 @@ public class AuthenticatedInstaTest {
         for (Media media : list) {
             assertTrue(checkMedia(media));
         }
-        LOGGER.info(list);
+        LOGGER.debug(list);
     }
 
     @Test
@@ -120,7 +121,7 @@ public class AuthenticatedInstaTest {
         for (Media media : list) {
             assertTrue(checkMedia(media));
         }
-        LOGGER.info(list);
+        LOGGER.debug(list);
     }
 
     @Test
@@ -131,7 +132,7 @@ public class AuthenticatedInstaTest {
         for (Media media : list) {
             assertTrue(checkMedia(media));
         }
-        LOGGER.info(list);
+        LOGGER.debug(list);
     }
 
     @Test
@@ -142,7 +143,7 @@ public class AuthenticatedInstaTest {
         for (Comment comment : list) {
             assertTrue(checkComment(comment));
         }
-        LOGGER.info(list);
+        LOGGER.debug(list);
     }
 
     @Test
@@ -163,7 +164,7 @@ public class AuthenticatedInstaTest {
     @Ignore
     public void testPreviewComments() throws Exception {
         Media media = instagram.getMediaByCode("");
-        LOGGER.info(media);
+        LOGGER.debug(media);
         if (media.getCommentCount() > 0) {
             assertTrue(media.getCommentPreview().getNodes().size() > 0);
             for (Comment comment : media.getCommentPreview().getNodes()) {
@@ -202,7 +203,7 @@ public class AuthenticatedInstaTest {
     @Ignore
     public void testAddMediaComment() throws Exception {
         ActionResponse<Comment> comment = instagram.addMediaComment("PASTE_HERE_MEDIA_CODE", "PASTE_COMMENT_TEXT");
-        LOGGER.info(comment);
+        LOGGER.debug(comment);
     }
 
     @Test

@@ -1,6 +1,7 @@
 package me.postaddict.instagram.scraper;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
+import me.postaddict.instagram.scraper.client.User;
 import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.ActionResponse;
 import me.postaddict.instagram.scraper.model.ActivityFeed;
@@ -16,7 +17,7 @@ public abstract class AuthenticatedInsta extends AnonymousInsta {
     }
 
 
-    abstract void login(String username, String password) throws IOException;
+    abstract void login(User user) throws IOException;
 
     abstract void likeMediaByCode(String code) throws IOException;
 
