@@ -97,7 +97,7 @@ public abstract class BasicInsta {
             try {
                 response = instaClient.getHttpClient().newCall(request).execute();
             } catch (InstagramException e) {
-                LOGGER.debug(String.format("'%s'[%s] Exception for %s", e.getErrorType(), i, instaClient.getCredentialUser()));
+                LOGGER.warn(String.format("'%s'[%s] Exception for %s", e.getErrorType(), i, instaClient.getCredentialUser()));
                 e.printStackTrace();
                 if (e.getErrorType().equals(ErrorType.RATE_LIMITED)) {
                     InstaClient.InstaClientType instaClientType = this.instaClient.getInstaClientType();
