@@ -99,9 +99,6 @@ public abstract class BasicInsta {
         do {
             try {
                 response = instaClient.getHttpClient().newCall(request).execute();
-                if (decodeUrl(request.url()).equals("https://www.instagram.com/accounts/login/ajax/")) {
-                    throw new InstagramException("Rate limited", ErrorType.RATE_LIMITED);
-                }
             } catch (InstagramException e) {
                 retry++;
                 LOGGER.warn(String.format("'%s'[%s] Exception for %s", e.getErrorType(), retry, instaClient.getCredentialUser()));
