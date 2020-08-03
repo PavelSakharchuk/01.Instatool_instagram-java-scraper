@@ -79,7 +79,7 @@ public class InstaClientFactory {
 
             if (instaClientType == InstaClient.InstaClientType.AUTHENTICATED) {
                 User user = CREDENTIALS.getUser();
-                LOGGER.info(String.format("User: %s/ %s", user.getLogin(), user.getPassword()));
+                LOGGER.info(String.format("User: %s", user));
                 instaClient.setCredentialUser(user);
 
                 Thread.sleep(10000L);
