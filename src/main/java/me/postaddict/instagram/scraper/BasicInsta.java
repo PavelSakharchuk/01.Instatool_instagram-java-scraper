@@ -95,6 +95,7 @@ public abstract class BasicInsta {
         Response response = null;
         // TODO: p.saharchuk: 27.07.2020: Move to properties and refactoring
         final int RETRY_LIMIT = 5;
+        final int RETRY_BASE_TIMEOUT_SEC = 300;
         int retry = 0;
         do {
             try {
@@ -110,6 +111,14 @@ public abstract class BasicInsta {
                     user.setRateLimitedDate(LocalDateTime.now());
 
                     this.instaClient = new InstaClientFactory(instaClientType).getClient();
+                }
+                if (e.getErrorType().equals(ErrorType.UNKNOWN_ERROR)) {
+                    try {
+                        Thread.sleep((long) 1000 * retry * RETRY_BASE_TIMEOUT_SEC);
+                    } catch (InterruptedException interruptedException) {
+                        interruptedException.printStackTrace();
+                        Thread.currentThread().interrupt();
+                    }
                 }
             }
         } while (retry < RETRY_LIMIT && response == null);
