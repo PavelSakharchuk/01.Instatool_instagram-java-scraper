@@ -56,7 +56,7 @@ public final class Credentials {
 
     public User getUser() {
         // TODO: p.sakharchuk: 02.08.2020: properties
-        final int RATE_LIMITED_MINUTES = 30;
+        final int RATE_LIMITED_MINUTES = 5;
 
         List<User> filteredUsers = users.stream()
                 .filter(user -> user.getRateLimitedDate().isBefore(LocalDateTime.now().minusMinutes(RATE_LIMITED_MINUTES)))
