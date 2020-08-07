@@ -31,7 +31,7 @@ public final class Credentials {
                 }
                 users = new ObjectMapper().registerModule(new JavaTimeModule())
                         .readValue(is, new TypeReference<List<User>>() {});
-                users.forEach(user -> user.setRateLimitedDate(LocalDateTime.now()));
+                users.forEach(user -> user.setRateLimitedDate(LocalDateTime.now().minusDays(1)));
             } finally {
                 if (is != null) {
                     is.close();
