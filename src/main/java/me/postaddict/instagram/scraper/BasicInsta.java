@@ -114,7 +114,9 @@ public abstract class BasicInsta {
                 }
                 if (e.getErrorType().equals(ErrorType.UNKNOWN_ERROR)) {
                     try {
-                        Thread.sleep((long) 1000 * retry * RETRY_BASE_TIMEOUT_SEC);
+                        long timeout = (long) 1000 * retry * RETRY_BASE_TIMEOUT_SEC;
+                        LOGGER.warn(String.format("Waiting: %s sec.%n.....", timeout));
+                        Thread.sleep(timeout);
                     } catch (InterruptedException interruptedException) {
                         interruptedException.printStackTrace();
                         Thread.currentThread().interrupt();
