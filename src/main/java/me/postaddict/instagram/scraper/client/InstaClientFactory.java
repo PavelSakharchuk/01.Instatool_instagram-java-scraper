@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 
@@ -95,11 +96,14 @@ public class InstaClientFactory {
         instaClient.setCredentialUser(user);
 
         try {
-            // TODO: p.sakharchuk: 06.08.2020: Add Random interval (10 - 30 sec)
             // TODO: p.sakharchuk: 06.08.2020: Add Random interval (60 - 300 sec) if rateLimitedDate is before current time more than 5 min
             // TODO: p.sakharchuk: 06.08.2020: Move to property
-            final long TIMEOUT_BEFORE_LOGIN_SEC = 10;
-            Thread.sleep(TIMEOUT_BEFORE_LOGIN_SEC * 1000);
+            final long TIMEOUT_BEFORE_LOGIN_MIN_SEC = 10;
+            final long TIMEOUT_BEFORE_LOGIN_MAX_SEC = 30;
+            long timeout = ThreadLocalRandom.current().nextLong(TIMEOUT_BEFORE_LOGIN_MIN_SEC, TIMEOUT_BEFORE_LOGIN_MAX_SEC + 1);
+
+            LOGGER.info(String.format("Waiting: %s sec.%n.....", timeout));
+            Thread.sleep(timeout * 1000);
             instagram.login(user);
 
             // TODO: p.sakharchuk: 30.07.2020: Need to check: Is it possible extra
