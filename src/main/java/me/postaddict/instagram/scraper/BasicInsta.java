@@ -88,13 +88,16 @@ public abstract class BasicInsta {
     }
 
     public Response executeHttpRequest(Request request) throws IOException {
+        String urlLog = decodeUrl(request.url());
+
         User user = this.instaClient.getCredentialUser();
         if(user != null){
             user.setRequestsNumber(user.getRequestsNumber() + 1);
+            urlLog = String.format("[%s:%s]: ", user.getRequestsNumber(), user.getLogin()) + urlLog;
         }
 
         LOGGER.debug("Request >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        LOGGER.info((user != null ? String.format("[%s:%s]: ", user.getRequestsNumber(), user.getLogin()) : "") + decodeUrl(request.url()));
+        LOGGER.info(urlLog);
         LOGGER.debug(String.format("headers:%n%s", request.headers()));
 
         Response response = null;
