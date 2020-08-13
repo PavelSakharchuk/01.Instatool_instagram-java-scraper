@@ -92,8 +92,10 @@ public class InstaClientFactory {
     private void login() throws IOException {
 
         User user = CREDENTIALS.getUser();
-        LOGGER.info(String.format("User: %s", user));
         instaClient.setCredentialUser(user);
+
+        user.setReloginNumber(user.getReloginNumber() + 1);
+        LOGGER.info(String.format("Login [%s]: %s", user.getReloginNumber(), user));
 
         try {
             // TODO: p.sakharchuk: 06.08.2020: Add Random interval (60 - 300 sec) if rateLimitedDate is before current time more than 5 min

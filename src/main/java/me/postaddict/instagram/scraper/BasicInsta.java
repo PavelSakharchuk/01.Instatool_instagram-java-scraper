@@ -88,8 +88,13 @@ public abstract class BasicInsta {
     }
 
     public Response executeHttpRequest(Request request) throws IOException {
+        User user = this.instaClient.getCredentialUser();
+        if(user != null){
+            user.setRequestsNumber(user.getRequestsNumber() + 1);
+        }
+
         LOGGER.debug("Request >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        LOGGER.info(decodeUrl(request.url()));
+        LOGGER.info((user != null ? String.format("[%s:%s]: ", user.getRequestsNumber(), user.getLogin()) : "") + decodeUrl(request.url()));
         LOGGER.debug(String.format("headers:%n%s", request.headers()));
 
         Response response = null;
@@ -107,8 +112,8 @@ public abstract class BasicInsta {
                 if (e.getErrorType().equals(ErrorType.RATE_LIMITED)) {
                     InstaClient.InstaClientType instaClientType = this.instaClient.getInstaClientType();
 
-                    User user = this.instaClient.getCredentialUser();
                     user.setRateLimitedDate(LocalDateTime.now());
+                    user.setRequestsNumber(0);
 
                     this.instaClient = new InstaClientFactory(instaClientType).getClient();
                 }
