@@ -31,7 +31,7 @@ public final class Credentials {
                 }
                 users = new ObjectMapper().registerModule(new JavaTimeModule())
                         .readValue(is, new TypeReference<List<User>>() {});
-                users.forEach(user -> user.setRateLimitedDate(LocalDateTime.now()));
+                users.forEach(user -> user.setRateLimitedDate(LocalDateTime.now().minusDays(1)));
             } finally {
                 if (is != null) {
                     is.close();
@@ -56,7 +56,7 @@ public final class Credentials {
 
     public User getUser() {
         // TODO: p.sakharchuk: 02.08.2020: properties
-        final int RATE_LIMITED_MINUTES = 30;
+        final int RATE_LIMITED_MINUTES = 5;
 
         List<User> filteredUsers = users.stream()
                 .filter(user -> user.getRateLimitedDate().isBefore(LocalDateTime.now().minusMinutes(RATE_LIMITED_MINUTES)))

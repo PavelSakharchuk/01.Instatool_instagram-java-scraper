@@ -117,7 +117,9 @@ public class AuthenticatedInstaTest {
     public void testGetMediasByTag() throws Exception {
         Tag tag = instagram.getMediasByTag("Moscow", 2);
         Collection<Media> list = tag.getMediaRating().getMedia().getNodes();
-        assertEquals(2 * 12, list.size());
+        int currentPageSize = list.size();
+        assertTrue(String.format("'%s' Current Page Size is NOT more than 0.", currentPageSize),
+                currentPageSize > 0);
         for (Media media : list) {
             assertTrue(checkMedia(media));
         }

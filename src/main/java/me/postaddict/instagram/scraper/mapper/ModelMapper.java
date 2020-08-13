@@ -7,6 +7,7 @@ import com.github.igorsuhorukov.dom.transform.converter.NopTypeConverter;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import me.postaddict.instagram.scraper.Logger;
 import me.postaddict.instagram.scraper.MediaUtil;
 import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.ActionResponse;
@@ -37,6 +38,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 public class ModelMapper implements Mapper{
+
+    private static final Logger LOGGER = Logger.getInstance();
 
     private static final String AUTHENTICATED_FIELD = "authenticated";
     private final ThreadLocal<ObjectMapper> mapperThreadLocal = ThreadLocal.withInitial(ObjectMapper::new);
@@ -190,6 +193,7 @@ public class ModelMapper implements Mapper{
             unmarshaller.get().setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, true);
             return (T) unmarshaller.get().unmarshal(jsonStream);
         } catch (JAXBException e) {
+            LOGGER.error(String.format("JSON can not be read: %s", jsonStream.toString()));
             throw new IllegalArgumentException(e);
         }
     }
@@ -201,6 +205,7 @@ public class ModelMapper implements Mapper{
             unmarshaller.get().setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, false);
             return (T) unmarshaller.get().unmarshal(new StreamSource(jsonStream), rootClass).getValue();
         } catch (JAXBException e) {
+            LOGGER.error(String.format("JSON can not be read: %s", jsonStream.toString()));
             throw new IllegalArgumentException(e);
         }
     }

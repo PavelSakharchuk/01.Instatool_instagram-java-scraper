@@ -11,10 +11,12 @@ import java.time.LocalDateTime;
 @Data
 public class User implements Comparable<User> {
     private String login;
-    private String phone;
-    private String password;
+    private String phone = null;
+    private String password = null;
     private String encPassword;
     private LocalDateTime rateLimitedDate;
+    private int reloginNumber = 0;
+    private int requestsNumber = 0;
 
     // Need for initialisation in Credentials.class
     public User() {
@@ -23,8 +25,6 @@ public class User implements Comparable<User> {
     public User(String login, String encPassword) {
         this.login = login;
         this.encPassword = encPassword;
-        this.phone = null;
-        this.password = null;
     }
 
     /**
@@ -46,6 +46,8 @@ public class User implements Comparable<User> {
                 .append("login", login)
                 .append("password", password)
                 .append("rateLimitedDate", rateLimitedDate)
+                .append("reloginNumber", reloginNumber)
+                .append("requestsNumber", requestsNumber)
                 .toString();
     }
 }

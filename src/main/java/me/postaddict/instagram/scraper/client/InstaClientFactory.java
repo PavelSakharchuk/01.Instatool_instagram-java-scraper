@@ -16,18 +16,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 
 public class InstaClientFactory {
-    private InstaClient.InstaClientType instaClientType;
+    private static final Logger LOGGER = Logger.getInstance();
+    private static final Credentials CREDENTIALS = Credentials.getInstance();
+
+    private final InstaClient.InstaClientType instaClientType;
     private OkHttpClient httpClient;
 
     private final InstaClient instaClient;
     private Instagram instagram;
-
-    private static final Logger LOGGER = Logger.getInstance();
-    private static final Credentials CREDENTIALS = Credentials.getInstance();
 
 
     public InstaClientFactory(InstaClient.InstaClientType instaClientType) {
@@ -78,23 +79,44 @@ public class InstaClientFactory {
             instagram.basePage();
 
             if (instaClientType == InstaClient.InstaClientType.AUTHENTICATED) {
-                User user = CREDENTIALS.getUser();
-                LOGGER.info(String.format("User: %s", user));
-                instaClient.setCredentialUser(user);
-
-                Thread.sleep(10000L);
-                instagram.login(user);
-
-                // TODO: p.sakharchuk: 30.07.2020: Need to check: Is it possible extra
-                instagram.basePage();
+                login();
             }
 
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             String message = String.format("Can not get base page data:%n%s", e);
             throw new InstagramException(message, ErrorType.UNKNOWN_ERROR);
         }
         return instagram;
     }
+
+    private void login() throws IOException {
+
+        User user = CREDENTIALS.getUser();
+        instaClient.setCredentialUser(user);
+
+        user.setReloginNumber(user.getReloginNumber() + 1);
+        LOGGER.info(String.format("Login [%s]: %s", user.getReloginNumber(), user));
+
+        try {
+            // TODO: p.sakharchuk: 06.08.2020: Add Random interval (60 - 300 sec) if rateLimitedDate is before current time more than 5 min
+            // TODO: p.sakharchuk: 06.08.2020: Move to property
+            final long TIMEOUT_BEFORE_LOGIN_MIN_SEC = 10;
+            final long TIMEOUT_BEFORE_LOGIN_MAX_SEC = 30;
+            long timeout = ThreadLocalRandom.current().nextLong(TIMEOUT_BEFORE_LOGIN_MIN_SEC, TIMEOUT_BEFORE_LOGIN_MAX_SEC + 1);
+
+            LOGGER.info(String.format("Waiting: %s sec.%n.....", timeout));
+            Thread.sleep(timeout * 1000);
+            instagram.login(user);
+
+            // TODO: p.sakharchuk: 30.07.2020: Need to check: Is it possible extra
+            instagram.basePage();
+        } catch (InterruptedException e) {
+            String message = String.format("%s can not be logged.", user);
+            Thread.currentThread().interrupt();
+            throw new InstagramException(message, ErrorType.UNKNOWN_ERROR);
+        }
+    }
+
 
     public enum UserAgent {
         WIN10_CHROME("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"),
