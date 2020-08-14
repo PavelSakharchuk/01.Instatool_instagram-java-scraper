@@ -102,7 +102,7 @@ public abstract class BasicInsta {
 
         Response response = null;
         // TODO: p.saharchuk: 27.07.2020: Move to properties and refactoring
-        final int RETRY_LIMIT = 5;
+        final int RETRY_LIMIT = 50;
         final int RETRY_BASE_TIMEOUT_SEC = 300;
         int retry = 0;
         do {
