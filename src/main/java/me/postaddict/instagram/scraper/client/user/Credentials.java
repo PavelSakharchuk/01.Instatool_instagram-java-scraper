@@ -1,9 +1,8 @@
-package me.postaddict.instagram.scraper.client;
+package me.postaddict.instagram.scraper.client.user;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import lombok.Data;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,7 +1,7 @@
 package me.postaddict.instagram.scraper;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
-import me.postaddict.instagram.scraper.client.User;
+import me.postaddict.instagram.scraper.client.user.User;
 import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.ActionResponse;
 import me.postaddict.instagram.scraper.model.ActivityFeed;

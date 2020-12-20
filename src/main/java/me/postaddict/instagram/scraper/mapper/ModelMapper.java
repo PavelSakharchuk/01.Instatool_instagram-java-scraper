@@ -8,7 +8,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.postaddict.instagram.scraper.Logger;
-import me.postaddict.instagram.scraper.MediaUtil;
+import me.postaddict.instagram.scraper.utils.MediaUtil;
 import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.ActionResponse;
 import me.postaddict.instagram.scraper.model.ActivityFeed;

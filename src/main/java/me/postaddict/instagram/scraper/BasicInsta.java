@@ -2,7 +2,7 @@ package me.postaddict.instagram.scraper;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.client.InstaClientFactory;
-import me.postaddict.instagram.scraper.client.User;
+import me.postaddict.instagram.scraper.client.user.User;
 import me.postaddict.instagram.scraper.exception.InstagramException;
 import me.postaddict.instagram.scraper.mapper.Mapper;
 import me.postaddict.instagram.scraper.mapper.ModelMapper;

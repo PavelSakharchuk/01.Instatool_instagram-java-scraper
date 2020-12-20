@@ -4,6 +4,7 @@ import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.Comment;
 import me.postaddict.instagram.scraper.model.Media;
 import me.postaddict.instagram.scraper.model.Tag;
+import me.postaddict.instagram.scraper.utils.MediaUtil;
 
 import java.util.concurrent.TimeUnit;
 

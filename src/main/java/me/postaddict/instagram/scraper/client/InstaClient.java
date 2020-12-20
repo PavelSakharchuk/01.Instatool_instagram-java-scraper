@@ -2,6 +2,7 @@ package me.postaddict.instagram.scraper.client;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import me.postaddict.instagram.scraper.client.user.User;
 import okhttp3.OkHttpClient;
 
 import java.util.Arrays;

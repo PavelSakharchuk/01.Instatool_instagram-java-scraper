@@ -1,7 +1,7 @@
 package me.postaddict.instagram.scraper;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
-import me.postaddict.instagram.scraper.client.User;
+import me.postaddict.instagram.scraper.client.user.User;
 import me.postaddict.instagram.scraper.exception.InstagramAuthException;
 import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.ActionResponse;
@@ -25,6 +25,7 @@ import me.postaddict.instagram.scraper.request.parameters.MediaCode;
 import me.postaddict.instagram.scraper.request.parameters.TagName;
 import me.postaddict.instagram.scraper.request.parameters.UserMediaListParameter;
 import me.postaddict.instagram.scraper.request.parameters.UserParameter;
+import me.postaddict.instagram.scraper.utils.MediaUtil;
 import okhttp3.Cookie;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;

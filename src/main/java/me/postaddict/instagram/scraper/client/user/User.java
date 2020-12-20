@@ -1,4 +1,4 @@
-package me.postaddict.instagram.scraper.client;
+package me.postaddict.instagram.scraper.client.user;
 
 import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
