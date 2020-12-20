@@ -15,37 +15,37 @@ public abstract class StatelessInsta extends BasicInsta {
         super(instaClient);
     }
 
-    abstract void basePage() throws IOException;
+    public abstract void basePage() throws IOException;
 
-    abstract Tag getMediasByTag(String tag) throws IOException;
+    public abstract Tag getMediasByTag(String tag) throws IOException;
 
-    abstract Tag getMediasByTag(String tag, int pageCount) throws IOException;
+    public abstract Tag getMediasByTag(String tag, int pageCount) throws IOException;
 
-    abstract Account getAccountByUsername(String username) throws IOException;
+    public abstract Account getAccountByUsername(String username) throws IOException;
 
     /**
      * @deprecated send tree request, but should be only one
      */
     @Deprecated
-    abstract Account getAccountById(long id) throws IOException;
+    public abstract Account getAccountById(long id) throws IOException;
 
-    abstract PageObject<Media> getMediaByUserId(long userId) throws IOException;
+    public abstract PageObject<Media> getMediaByUserId(long userId) throws IOException;
 
-    abstract PageObject<Media> getMediaByUserId(long userId, long mediaListSize) throws IOException;
+    public abstract PageObject<Media> getMediaByUserId(long userId, long mediaListSize) throws IOException;
 
     /**
      * @deprecated use getMediaByUserId
      */
     @Deprecated
-    abstract PageObject<Media> getMedias(String username, int pageCount) throws IOException;
+    public abstract PageObject<Media> getMedias(String username, int pageCount) throws IOException;
 
     /**
      * @deprecated use getMediaByUserId, because it is private method by 'pageCursor'
      */
     @Deprecated
-    abstract PageObject<Media> getMedias(long userId, int pageCount, PageInfo pageCursor) throws IOException;
+    public abstract PageObject<Media> getMedias(long userId, int pageCount, PageInfo pageCursor) throws IOException;
 
-    abstract Media getMediaByUrl(String url) throws IOException;
+    public abstract Media getMediaByUrl(String url) throws IOException;
 
-    abstract Media getMediaByCode(String code) throws IOException;
+    public abstract Media getMediaByCode(String code) throws IOException;
 }

@@ -17,31 +17,31 @@ public abstract class AuthenticatedInsta extends AnonymousInsta {
     }
 
 
-    abstract void login(User user) throws IOException;
+    public abstract void login(User user) throws IOException;
 
-    abstract void likeMediaByCode(String code) throws IOException;
+    public abstract void likeMediaByCode(String code) throws IOException;
 
-    abstract void unlikeMediaByCode(String code) throws IOException;
+    public abstract void unlikeMediaByCode(String code) throws IOException;
 
-    abstract void followAccountByUsername(String username) throws IOException;
+    public abstract void followAccountByUsername(String username) throws IOException;
 
-    abstract void unfollowAccountByUsername(String username) throws IOException;
+    public abstract void unfollowAccountByUsername(String username) throws IOException;
 
-    abstract void followAccount(long userId) throws IOException;
+    public abstract void followAccount(long userId) throws IOException;
 
-    abstract void unfollowAccount(long userId) throws IOException;
+    public abstract void unfollowAccount(long userId) throws IOException;
 
-    abstract ActionResponse<Comment> addMediaComment(String code, String commentText) throws IOException;
+    public abstract ActionResponse<Comment> addMediaComment(String code, String commentText) throws IOException;
 
-    abstract void deleteMediaComment(String code, String commentId) throws IOException;
+    public abstract void deleteMediaComment(String code, String commentId) throws IOException;
 
-    abstract PageObject<Account> getMediaLikes(String shortcode, int pageCount) throws IOException;
+    public abstract PageObject<Account> getMediaLikes(String shortcode, int pageCount) throws IOException;
 
-    abstract PageObject<Account> getFollows(long userId, int pageCount) throws IOException;
+    public abstract PageObject<Account> getFollows(long userId, int pageCount) throws IOException;
 
-    abstract PageObject<Account> getFollowers(long userId, int pageCount) throws IOException;
+    public abstract PageObject<Account> getFollowers(long userId, int pageCount) throws IOException;
 
-    abstract ActivityFeed getActivityFeed() throws IOException;
+    public abstract ActivityFeed getActivityFeed() throws IOException;
 
-    abstract Long getLoginUserId();
+    public abstract Long getLoginUserId();
 }

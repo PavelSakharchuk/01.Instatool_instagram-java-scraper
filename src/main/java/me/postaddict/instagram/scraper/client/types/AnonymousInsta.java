@@ -14,8 +14,8 @@ public abstract class AnonymousInsta extends StatelessInsta {
     }
 
 
-    abstract Location getLocationMediasById(String locationId, int pageCount) throws IOException;
+    public abstract Location getLocationMediasById(String locationId, int pageCount) throws IOException;
 
-    abstract PageObject<Comment> getCommentsByMediaCode(String code, int pageCount) throws IOException;
+    public abstract PageObject<Comment> getCommentsByMediaCode(String code, int pageCount) throws IOException;
 
 }
