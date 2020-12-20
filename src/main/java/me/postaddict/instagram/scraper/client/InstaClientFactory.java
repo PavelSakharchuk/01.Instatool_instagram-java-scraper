@@ -1,8 +1,8 @@
 package me.postaddict.instagram.scraper.client;
 
-import me.postaddict.instagram.scraper.ErrorType;
-import me.postaddict.instagram.scraper.Instagram;
-import me.postaddict.instagram.scraper.Logger;
+import me.postaddict.instagram.scraper.interceptor.ErrorType;
+import me.postaddict.instagram.scraper.client.types.Instagram;
+import me.postaddict.instagram.scraper.utils.Logger;
 import me.postaddict.instagram.scraper.client.user.Credentials;
 import me.postaddict.instagram.scraper.client.user.User;
 import me.postaddict.instagram.scraper.cookie.CookieHashSet;

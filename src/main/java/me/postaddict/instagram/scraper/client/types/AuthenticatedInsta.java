@@ -1,4 +1,4 @@
-package me.postaddict.instagram.scraper;
+package me.postaddict.instagram.scraper.client.types;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.client.user.User;

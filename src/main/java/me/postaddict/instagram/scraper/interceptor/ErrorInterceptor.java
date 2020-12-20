@@ -1,6 +1,5 @@
 package me.postaddict.instagram.scraper.interceptor;
 
-import me.postaddict.instagram.scraper.ErrorType;
 import me.postaddict.instagram.scraper.exception.InstagramAuthException;
 import me.postaddict.instagram.scraper.exception.InstagramException;
 import me.postaddict.instagram.scraper.exception.InstagramNotFoundException;

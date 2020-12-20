@@ -3,12 +3,11 @@ package me.postaddict.instagram.scraper.request;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import me.postaddict.instagram.scraper.Instagram;
+import me.postaddict.instagram.scraper.client.types.Instagram;
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.mapper.Mapper;
 import me.postaddict.instagram.scraper.model.PageInfo;
 import me.postaddict.instagram.scraper.request.parameters.RequestParameter;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 

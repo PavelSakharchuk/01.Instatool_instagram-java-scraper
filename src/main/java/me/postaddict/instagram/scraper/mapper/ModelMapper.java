@@ -7,7 +7,7 @@ import com.github.igorsuhorukov.dom.transform.converter.NopTypeConverter;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import me.postaddict.instagram.scraper.Logger;
+import me.postaddict.instagram.scraper.utils.Logger;
 import me.postaddict.instagram.scraper.utils.MediaUtil;
 import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.ActionResponse;

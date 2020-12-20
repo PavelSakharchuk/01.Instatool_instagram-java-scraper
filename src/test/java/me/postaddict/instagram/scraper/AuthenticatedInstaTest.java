@@ -2,6 +2,8 @@ package me.postaddict.instagram.scraper;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.client.InstaClientFactory;
+import me.postaddict.instagram.scraper.client.types.AuthenticatedInsta;
+import me.postaddict.instagram.scraper.client.types.Instagram;
 import me.postaddict.instagram.scraper.client.user.User;
 import me.postaddict.instagram.scraper.cookie.CookieHashSet;
 import me.postaddict.instagram.scraper.cookie.DefaultCookieJar;
@@ -16,6 +18,7 @@ import me.postaddict.instagram.scraper.model.Location;
 import me.postaddict.instagram.scraper.model.Media;
 import me.postaddict.instagram.scraper.model.PageObject;
 import me.postaddict.instagram.scraper.model.Tag;
+import me.postaddict.instagram.scraper.utils.Logger;
 import me.postaddict.instagram.scraper.utils.MediaUtil;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

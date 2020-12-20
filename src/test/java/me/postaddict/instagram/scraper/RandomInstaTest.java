@@ -2,6 +2,7 @@ package me.postaddict.instagram.scraper;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.client.InstaClientFactory;
+import me.postaddict.instagram.scraper.client.types.Instagram;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

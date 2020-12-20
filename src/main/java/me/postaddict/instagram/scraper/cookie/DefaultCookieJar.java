@@ -1,6 +1,6 @@
 package me.postaddict.instagram.scraper.cookie;
 
-import me.postaddict.instagram.scraper.Logger;
+import me.postaddict.instagram.scraper.utils.Logger;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;

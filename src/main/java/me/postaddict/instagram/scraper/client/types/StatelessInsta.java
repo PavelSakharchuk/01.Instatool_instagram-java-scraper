@@ -1,13 +1,12 @@
-package me.postaddict.instagram.scraper;
+package me.postaddict.instagram.scraper.client.types;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
+import me.postaddict.instagram.scraper.client.types.BasicInsta;
 import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.Media;
 import me.postaddict.instagram.scraper.model.PageInfo;
 import me.postaddict.instagram.scraper.model.PageObject;
 import me.postaddict.instagram.scraper.model.Tag;
-import okhttp3.Request;
-import okhttp3.Response;
 
 import java.io.IOException;
 

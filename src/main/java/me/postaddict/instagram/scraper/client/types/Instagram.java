@@ -1,5 +1,7 @@
-package me.postaddict.instagram.scraper;
+package me.postaddict.instagram.scraper.client.types;
 
+import me.postaddict.instagram.scraper.client.Endpoint;
+import me.postaddict.instagram.scraper.interceptor.ErrorType;
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.client.user.User;
 import me.postaddict.instagram.scraper.exception.InstagramAuthException;

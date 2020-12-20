@@ -1,4 +1,4 @@
-package me.postaddict.instagram.scraper;
+package me.postaddict.instagram.scraper.utils;
 
 import org.apache.log4j.LogManager;
 

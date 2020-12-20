@@ -2,6 +2,8 @@ package me.postaddict.instagram.scraper;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.client.InstaClientFactory;
+import me.postaddict.instagram.scraper.client.types.Instagram;
+import me.postaddict.instagram.scraper.client.types.StatelessInsta;
 import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.Media;
 import me.postaddict.instagram.scraper.model.PageObject;
