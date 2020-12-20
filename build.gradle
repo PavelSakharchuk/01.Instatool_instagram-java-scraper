@@ -11,21 +11,97 @@ repositories {
 }
 
 dependencies {
+    /**
+     * OkHttp
+     * Square’s meticulous HTTP client for Java and Kotlin.
+     *
+     * https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+     * https://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor
+     */
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+    /**
+     * Jackson Databind
+     * General data-binding functionality for Jackson: works on core streaming API
+     *
+     * https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+     */
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.2'
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
-    // fix: Cannot construct instance of `java.time.LocalDateTime` (no Creators, like default construct, exist): no String-argument constructor/factory method to deserialize from String value ('2000-01-01T00:00:00.000')] -->
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.10'
+    /**
+     * Jackson Datatype: JSR310
+     * Add-on module to support JSR-310 (Java 8 Date & Time API) data types.
+     * fix: Cannot construct instance of `java.time.LocalDateTime` (no Creators, like default construct, exist): no String-argument constructor/factory method to deserialize from String value ('2000-01-01T00:00:00.000')] -->
+     *
+     * https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+     */
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.10'
+    /**
+     * DOM Transformation
+     * Transform DOM model in JSON like structure
+     *
+     * https://github.com/igor-suhorukov/dom-transformation
+     * https://mvnrepository.com/artifact/com.github.igor-suhorukov/dom-transformation
+     */
     compile 'com.github.igor-suhorukov:dom-transformation:1.1'
+    /**
+     * Apache Commons IO
+     * The Apache Commons IO library contains utility classes, stream implementations,
+     * file filters, file comparators, endian transformation classes, and much more.
+     *
+     * https://mvnrepository.com/artifact/commons-io/commons-io
+     */
     compile 'commons-io:commons-io:2.6'
+    /**
+     * Apache Commons Lang
+     * Apache Commons Lang, a package of Java utility classes for the classes
+     * that are in java.lang's hierarchy, or are considered to be so standard as to justify existence in java.lang.
+     *
+     * https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+     */
     compile 'org.apache.commons:commons-lang3:3.10'
-    // Logger: https://mvnrepository.com/artifact/log4j/log4j
-    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    /**
+     * LOG4J
+     * The Log4j API is a logging facade that may, of course, be used with the Log4j implementation,
+     * but may also be used in front of other logging implementations such as Logback.
+     *
+     * https://mvnrepository.com/artifact/log4j/log4j
+     */
+    compile 'log4j:log4j:1.2.17'
+    /**
+     * Java Persistence API
+     * Clean-room definition of JPA APIs intended for use in developing Hibernate JPA implementation.
+     *
+     * https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
+     */
     compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
+    /**
+     * EclipseLink MOXy
+     *
+     * https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.moxy
+     */
     compile 'org.eclipse.persistence:org.eclipse.persistence.moxy:2.7.0'
     compile 'commons-beanutils:commons-beanutils:1.9.3'
+    /**
+     * Lombok
+     * Spice up your java: Automatic Resource Management, automatic generation
+     * of getters, setters, equals, hashCode and toString, and more!
+     *
+     * https://mvnrepository.com/artifact/org.projectlombok/lombok
+     */
     compileOnly 'org.projectlombok:lombok:1.18.16'
+    /**
+     * JUnit
+     * JUnit is a unit testing framework for Java, created by Erich Gamma and Kent Beck.
+     *
+     * https://mvnrepository.com/artifact/junit/junit
+     */
     testCompile 'junit:junit:4.11'
+    /**
+     * AssertJ Fluent Assertions
+     * Rich and fluent assertions for testing for Java.
+     * Need for JUnit
+     *
+     * https://mvnrepository.com/artifact/org.assertj/assertj-core
+     */
     testCompile 'org.assertj:assertj-core:3.8.0'
 }
