@@ -1,4 +1,4 @@
-package me.postaddict.instagram.scraper.client.user;
+package me.postaddict.instagram.scraper.utils.password;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

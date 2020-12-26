@@ -1,7 +1,6 @@
 package me.postaddict.instagram.scraper.utils.password;
 
 import lombok.SneakyThrows;
-import me.postaddict.instagram.scraper.client.user.WebEncryption;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
