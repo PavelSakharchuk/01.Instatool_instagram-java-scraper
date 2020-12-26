@@ -1,15 +1,15 @@
 package me.postaddict.instagram.scraper.client;
 
-import me.postaddict.instagram.scraper.interceptor.ErrorType;
 import me.postaddict.instagram.scraper.client.types.Instagram;
-import me.postaddict.instagram.scraper.utils.Logger;
-import me.postaddict.instagram.scraper.client.user.Credentials;
+import me.postaddict.instagram.scraper.client.user.CredentialsFactory;
 import me.postaddict.instagram.scraper.client.user.User;
 import me.postaddict.instagram.scraper.cookie.CookieHashSet;
 import me.postaddict.instagram.scraper.cookie.DefaultCookieJar;
 import me.postaddict.instagram.scraper.exception.InstagramException;
 import me.postaddict.instagram.scraper.interceptor.ErrorInterceptor;
+import me.postaddict.instagram.scraper.interceptor.ErrorType;
 import me.postaddict.instagram.scraper.interceptor.FakeBrowserInterceptor;
+import me.postaddict.instagram.scraper.utils.Logger;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -24,8 +24,6 @@ import java.util.concurrent.TimeUnit;
 
 public class InstaClientFactory {
     private static final Logger LOGGER = Logger.getInstance();
-    private static final Credentials CREDENTIALS = Credentials.getInstance();
-
     private final InstaClient.InstaClientType instaClientType;
     private OkHttpClient httpClient;
 
@@ -92,8 +90,7 @@ public class InstaClientFactory {
     }
 
     private void login() throws IOException {
-
-        User user = CREDENTIALS.getUser();
+        User user = CredentialsFactory.getInstance().getUser();
         instaClient.setCredentialUser(user);
 
         user.setReloginNumber(user.getReloginNumber() + 1);
@@ -109,9 +106,6 @@ public class InstaClientFactory {
             LOGGER.info(String.format("Waiting: %s sec.%n.....", timeout));
             Thread.sleep(timeout * 1000);
             instagram.login(user);
-
-            // TODO: p.sakharchuk: 30.07.2020: Need to check: Is it possible extra
-            instagram.basePage();
         } catch (InterruptedException e) {
             String message = String.format("%s can not be logged.", user);
             Thread.currentThread().interrupt();

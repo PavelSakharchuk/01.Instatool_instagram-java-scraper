@@ -1,16 +1,18 @@
 package me.postaddict.instagram.scraper.client.types;
 
+import me.postaddict.instagram.scraper.Constants;
 import me.postaddict.instagram.scraper.client.Endpoint;
-import me.postaddict.instagram.scraper.interceptor.ErrorType;
-import me.postaddict.instagram.scraper.utils.Logger;
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.client.InstaClientFactory;
 import me.postaddict.instagram.scraper.client.user.User;
+import me.postaddict.instagram.scraper.client.user.WebEncryption;
 import me.postaddict.instagram.scraper.exception.InstagramException;
+import me.postaddict.instagram.scraper.interceptor.ErrorType;
 import me.postaddict.instagram.scraper.mapper.Mapper;
 import me.postaddict.instagram.scraper.mapper.ModelMapper;
 import me.postaddict.instagram.scraper.request.DefaultDelayHandler;
 import me.postaddict.instagram.scraper.request.DelayHandler;
+import me.postaddict.instagram.scraper.utils.Logger;
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
@@ -31,6 +33,7 @@ public abstract class BasicInsta {
     protected final DelayHandler delayHandler = new DefaultDelayHandler();
     protected final Mapper mapper = new ModelMapper();
     protected InstaClient instaClient;
+    protected WebEncryption webEncryption = new WebEncryption();
 
 
     public BasicInsta(InstaClient instaClient) {
@@ -55,10 +58,9 @@ public abstract class BasicInsta {
         return instaClient.getCsrfToken();
     }
 
-    protected void getRolloutHash(String body) throws IOException {
+    protected void getRolloutHash(String body) {
         try {
-            // TODO: p.saharchuk: 19.07.2020: Get JSON from '<script type="text/javascript">window._sharedData ='
-            //  and pars it
+            // TODO: p.saharchuk: 19.07.2020: Get JSON from '<script type="text/javascript">window._sharedData =' and pars it
             String rollout_hash = getToken("\"rollout_hash\":\"", 12, IOUtils.toInputStream(body, StandardCharsets.UTF_8));
             instaClient.setRolloutHash(rollout_hash);
         } catch (IOException e) {
@@ -67,6 +69,24 @@ public abstract class BasicInsta {
         }
     }
 
+    protected void getWebEncryption(String body) {
+        try {
+            // TODO: p.saharchuk: 27.12.2020: Get JSON from '<script type="text/javascript">window._sharedData =' and pars it
+            String keyId = getToken("\"key_id\":\"", 3, IOUtils.toInputStream(body, StandardCharsets.UTF_8));
+            String publicKey = getToken("\"public_key\":\"", 64, IOUtils.toInputStream(body, StandardCharsets.UTF_8));
+            String version = getToken("\"version\":\"", 2, IOUtils.toInputStream(body, StandardCharsets.UTF_8));
+
+            webEncryption.setKeyId(Integer.valueOf(keyId));
+            webEncryption.setPublicKey(publicKey);
+            webEncryption.setVersion(Integer.valueOf(version));
+        } catch (IOException e) {
+            webEncryption.setKeyId(Constants.WebEncryption.DEFAULT_KEY_ID);
+            webEncryption.setPublicKey(Constants.WebEncryption.DEFAULT_PUBLIC_KEY);
+            webEncryption.setVersion(Constants.WebEncryption.DEFAULT_VERSION);
+        }
+    }
+
+    // TODO: p.saharchuk: 27.12.2020: Need to rework by reExp pattern instead int length
     private String getToken(String seek, int length, InputStream stream) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(stream));
 

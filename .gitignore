@@ -7,4 +7,4 @@ out
 .settings/
 /target/
 # credentials file need copy credentials_exemple.json
-**/credentials.json
+**/credentials.yml
