@@ -3,9 +3,6 @@ version '0.0.1'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
@@ -65,7 +62,7 @@ dependencies {
      *
      * https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml
      */
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.4'
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.4'
     /**
      * DOM Transformation
      * Transform DOM model in JSON like structure
@@ -120,7 +117,7 @@ dependencies {
      * JitPack: https://jitpack.io/#InstantWebP2P/tweetnacl-java
      * Git: https://github.com/InstantWebP2P/tweetnacl-java
      */
-    implementation 'com.github.InstantWebP2P:tweetnacl-java:v1.1.2'
+    compile 'com.github.InstantWebP2P:tweetnacl-java:v1.1.2'
     /**
      * Blake2b
      * Blake2b is a high performance Java implementation of the BLAKE2b cryptographic hash function
@@ -128,7 +125,7 @@ dependencies {
      * JitPack: https://jitpack.io/#alphazero/Blake2b
      * Git: https://github.com/InstantWebP2P/tweetnacl-java
      */
-    implementation 'com.github.alphazero:Blake2b:8e1366c0e7'
+    compile 'com.github.alphazero:Blake2b:8e1366c0e7'
     /**
      * Lombok
      * Spice up your java: Automatic Resource Management, automatic generation
