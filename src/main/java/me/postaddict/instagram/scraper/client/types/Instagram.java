@@ -1,5 +1,6 @@
 package me.postaddict.instagram.scraper.client.types;
 
+import lombok.SneakyThrows;
 import me.postaddict.instagram.scraper.client.Endpoint;
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.client.user.User;
@@ -52,8 +53,9 @@ public class Instagram extends AuthenticatedInsta {
         super(instaClient);
     }
 
+    @SneakyThrows
     @Override
-    public void basePage() throws IOException {
+    public void basePage() {
         Request request = new Request.Builder()
                 .url(Endpoint.BASE_URL)
                 .build();

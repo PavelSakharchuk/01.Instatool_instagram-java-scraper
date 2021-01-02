@@ -22,6 +22,22 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     /**
+     * JSoup Java HTML Parser
+     * jsoup is a Java library for working with real-world HTML. It provides a very convenient API for extracting and manipulating data, using the best of DOM, CSS, and jquery-like methods. jsoup implements the WHATWG HTML5 specification, and parses HTML to the same DOM as modern browsers do.
+     *
+     * https://mvnrepository.com/artifact/org.jsoup/jsoup
+     */
+    compile 'org.jsoup:jsoup:1.12.2'
+    /**
+     * Guava: Google Core Libraries For Java
+     * Guava is a suite of core and expanded libraries that include utility classes, Google's collections, I/O classes, and much more.
+     *
+     * Git: https://mvnrepository.com/artifact/com.google.guava/guava
+     * Fork: https://github.com/PavelSakharchuk/contribute_guava
+     * JitPack: https://jitpack.io/#PavelSakharchuk/contribute_guava
+     */
+    compile 'com.github.PavelSakharchuk.contribute_guava:guava:23953360dd'
+    /**
      * Jackson Databind
      * General data-binding functionality for Jackson: works on core streaming API
      *
@@ -37,6 +53,13 @@ dependencies {
      */
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.10'
     /**
+     * JAXB API
+     * JAXB API is a set of interfaces through which client applications communicate with code generated from a schema.
+     *
+     * https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+     */
+    compile 'javax.xml.bind:jaxb-api:2.3.1'
+    /**
      * Jackson Dataformat YAMLcommons
      * Support for reading and writing YAML-encoded data via Jackson abstractions.
      *
@@ -51,13 +74,6 @@ dependencies {
      * https://mvnrepository.com/artifact/com.github.igor-suhorukov/dom-transformation
      */
     compile 'com.github.igor-suhorukov:dom-transformation:1.1'
-    /**
-     * JAXB API
-     * JAXB API is a set of interfaces through which client applications communicate with code generated from a schema.
-     *
-     * https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
-     */
-    compile 'javax.xml.bind:jaxb-api:2.3.1'
     /**
      * Apache Commons IO
      * The Apache Commons IO library contains utility classes, stream implementations,

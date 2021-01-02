@@ -1,7 +1,6 @@
 package me.postaddict.instagram.scraper.client.types;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
-import me.postaddict.instagram.scraper.client.types.BasicInsta;
 import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.Media;
 import me.postaddict.instagram.scraper.model.PageInfo;
@@ -10,12 +9,13 @@ import me.postaddict.instagram.scraper.model.Tag;
 
 import java.io.IOException;
 
+
 public abstract class StatelessInsta extends BasicInsta {
     public StatelessInsta(InstaClient instaClient) {
         super(instaClient);
     }
 
-    public abstract void basePage() throws IOException;
+    public abstract void basePage();
 
     public abstract Tag getMediasByTag(String tag) throws IOException;
 

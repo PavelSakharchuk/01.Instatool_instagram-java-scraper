@@ -81,7 +81,6 @@ public class InstaClientFactory {
             if (instaClientType == InstaClient.InstaClientType.AUTHENTICATED) {
                 login();
             }
-
         } catch (IOException e) {
             String message = String.format("Can not get base page data:%n%s", e);
             throw new InstagramException(message, ErrorType.UNKNOWN_ERROR);

@@ -7,8 +7,6 @@ import com.github.igorsuhorukov.dom.transform.converter.NopTypeConverter;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import me.postaddict.instagram.scraper.utils.Logger;
-import me.postaddict.instagram.scraper.utils.MediaUtil;
 import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.ActionResponse;
 import me.postaddict.instagram.scraper.model.ActivityFeed;
@@ -18,6 +16,8 @@ import me.postaddict.instagram.scraper.model.Location;
 import me.postaddict.instagram.scraper.model.Media;
 import me.postaddict.instagram.scraper.model.PageObject;
 import me.postaddict.instagram.scraper.model.Tag;
+import me.postaddict.instagram.scraper.utils.Logger;
+import me.postaddict.instagram.scraper.utils.MediaUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.eclipse.persistence.jaxb.JAXBContextProperties;
 import org.eclipse.persistence.jaxb.UnmarshallerProperties;
@@ -161,7 +161,7 @@ public class ModelMapper implements Mapper{
         Account account = graphQlResponse.getPayload();
         Account accountCopy = (Account) BeanUtils.cloneBean(account);
         accountCopy.setMedia(null);
-        if(account.getMedia()!=null && account.getMedia().getNodes()!=null) {
+        if (account.getMedia() != null && account.getMedia().getNodes() != null) {
             account.getMedia().getNodes().forEach(media -> media.setOwner(accountCopy));
             account.getMedia().getNodes().forEach(this::updateMediaTime);
         }
@@ -169,10 +169,12 @@ public class ModelMapper implements Mapper{
     }
 
 
-    private Node getDomModel(InputStream jsonStream) throws java.io.IOException {
-        Map<String,Object> jsonMap = mapperThreadLocal.get().readValue(jsonStream,
-                new TypeReference<Map<String, Object>>() {});
-        return new DomTransformer(new NopTypeConverter()).transform(Collections.singletonMap("root",jsonMap));
+    @SneakyThrows
+    public Node getDomModel(InputStream jsonStream) {
+        Map<String, Object> jsonMap = mapperThreadLocal.get().readValue(jsonStream,
+                new TypeReference<Map<String, Object>>() {
+                });
+        return new DomTransformer(new NopTypeConverter()).transform(Collections.singletonMap("root", jsonMap));
     }
 
     @Override
