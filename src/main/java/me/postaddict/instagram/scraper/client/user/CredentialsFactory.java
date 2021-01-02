@@ -1,9 +1,7 @@
-package me.postaddict.instagram.scraper.client;
+package me.postaddict.instagram.scraper.client.user;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import lombok.Data;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,14 +12,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 
-public final class Credentials {
-    private static final ThreadLocal<Credentials> instancePull = ThreadLocal.withInitial(() -> null);
+// TODO: p.saharchuk: 27.12.2020: Singleton with enum
+public final class CredentialsFactory {
+    private static final ThreadLocal<CredentialsFactory> instancePull = ThreadLocal.withInitial(() -> null);
+    private final String PATH = "credentials.yml";
+    private final List<User> users;
 
-    private static final String PATH = "credentials.json";
-    private List<User> users;
-
-
-    public Credentials() {
+    public CredentialsFactory() {
         InputStream is = null;
         try {
             try {
@@ -29,9 +26,12 @@ public final class Credentials {
                 if (is == null) {
                     throw new RuntimeException("Can't find credentials file.");
                 }
-                users = new ObjectMapper().registerModule(new JavaTimeModule())
-                        .readValue(is, new TypeReference<List<User>>() {});
-                users.forEach(user -> user.setRateLimitedDate(LocalDateTime.now().minusDays(1)));
+                Credentials credentials = new ObjectMapper(new YAMLFactory())
+                        .readValue(is, Credentials.class);
+                this.users = credentials.getUsers();
+                users.forEach(user -> {
+                    user.setRateLimitedDate(LocalDateTime.now().minusDays(1));
+                });
             } finally {
                 if (is != null) {
                     is.close();
@@ -47,9 +47,9 @@ public final class Credentials {
      *
      * @return Logger instance
      */
-    public static synchronized Credentials getInstance() {
+    public static synchronized CredentialsFactory getInstance() {
         return Optional.ofNullable(instancePull.get()).orElseGet(() -> {
-            instancePull.set(new Credentials());
+            instancePull.set(new CredentialsFactory());
             return instancePull.get();
         });
     }

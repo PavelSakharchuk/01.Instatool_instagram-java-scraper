@@ -1,8 +1,11 @@
-package me.postaddict.instagram.scraper;
+package me.postaddict.instagram.scraper.client.types;
 
+import lombok.SneakyThrows;
+import me.postaddict.instagram.scraper.client.Endpoint;
 import me.postaddict.instagram.scraper.client.InstaClient;
-import me.postaddict.instagram.scraper.client.User;
+import me.postaddict.instagram.scraper.client.user.User;
 import me.postaddict.instagram.scraper.exception.InstagramAuthException;
+import me.postaddict.instagram.scraper.interceptor.ErrorType;
 import me.postaddict.instagram.scraper.model.Account;
 import me.postaddict.instagram.scraper.model.ActionResponse;
 import me.postaddict.instagram.scraper.model.ActivityFeed;
@@ -25,6 +28,8 @@ import me.postaddict.instagram.scraper.request.parameters.MediaCode;
 import me.postaddict.instagram.scraper.request.parameters.TagName;
 import me.postaddict.instagram.scraper.request.parameters.UserMediaListParameter;
 import me.postaddict.instagram.scraper.request.parameters.UserParameter;
+import me.postaddict.instagram.scraper.utils.MediaUtil;
+import me.postaddict.instagram.scraper.utils.password.PasswordUtils;
 import okhttp3.Cookie;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
@@ -48,8 +53,9 @@ public class Instagram extends AuthenticatedInsta {
         super(instaClient);
     }
 
+    @SneakyThrows
     @Override
-    public void basePage() throws IOException {
+    public void basePage() {
         Request request = new Request.Builder()
                 .url(Endpoint.BASE_URL)
                 .build();
@@ -60,13 +66,14 @@ public class Instagram extends AuthenticatedInsta {
 
             getCSRFToken(body);
             getRolloutHash(body);
+            getWebEncryption(body);
         }
     }
 
     @Override
     public void login(User user) throws IOException {
         String userName = user.getLogin();
-        String encPassword = user.getEncPassword();
+        String encPassword = PasswordUtils.getEncPassword(user.getPassword(), webEncryption);
         if (userName == null || encPassword == null) {
             throw new InstagramAuthException("Specify username and enc_password");
         } else if (instaClient.getCsrfToken().isEmpty()) {

@@ -1,4 +1,4 @@
-package me.postaddict.instagram.scraper;
+package me.postaddict.instagram.scraper.client;
 
 import lombok.experimental.UtilityClass;
 
@@ -6,9 +6,9 @@ import lombok.experimental.UtilityClass;
 public class Endpoint {
     public static final String REFERER = "Referer";
     public static final String BASE_URL = "https://www.instagram.com";
-    protected static final String ACTIVITY_FEED = "https://www.instagram.com/accounts/activity/?__a=1";
-    protected static final String ACTIVITY_MARK_CHECKED = "https://www.instagram.com/web/activity/mark_checked/";
-    protected static final String LOGIN_URL = "https://www.instagram.com/accounts/login/ajax/";
+    public static final String ACTIVITY_FEED = "https://www.instagram.com/accounts/activity/?__a=1";
+    public static final String ACTIVITY_MARK_CHECKED = "https://www.instagram.com/web/activity/mark_checked/";
+    public static final String LOGIN_URL = "https://www.instagram.com/accounts/login/ajax/";
     private static final String MEDIA_LINK = "https://www.instagram.com/p/{{code}}";
     private static final String ACCOUNT_JSON_INFO = "https://www.instagram.com/{{username}}/?__a=1";
     /**

@@ -8,24 +8,148 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
+    /**
+     * OkHttp
+     * Square’s meticulous HTTP client for Java and Kotlin.
+     *
+     * https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+     * https://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor
+     */
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+    /**
+     * JSoup Java HTML Parser
+     * jsoup is a Java library for working with real-world HTML. It provides a very convenient API for extracting and manipulating data, using the best of DOM, CSS, and jquery-like methods. jsoup implements the WHATWG HTML5 specification, and parses HTML to the same DOM as modern browsers do.
+     *
+     * https://mvnrepository.com/artifact/org.jsoup/jsoup
+     */
+    compile 'org.jsoup:jsoup:1.12.2'
+    /**
+     * Guava: Google Core Libraries For Java
+     * Guava is a suite of core and expanded libraries that include utility classes, Google's collections, I/O classes, and much more.
+     *
+     * Git: https://mvnrepository.com/artifact/com.google.guava/guava
+     * Fork: https://github.com/PavelSakharchuk/contribute_guava
+     * JitPack: https://jitpack.io/#PavelSakharchuk/contribute_guava
+     */
+    compile 'com.github.PavelSakharchuk.contribute_guava:guava:23953360dd'
+    /**
+     * Jackson Databind
+     * General data-binding functionality for Jackson: works on core streaming API
+     *
+     * https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+     */
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.2'
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
-    // fix: Cannot construct instance of `java.time.LocalDateTime` (no Creators, like default construct, exist): no String-argument constructor/factory method to deserialize from String value ('2000-01-01T00:00:00.000')] -->
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.10'
+    /**
+     * Jackson Datatype: JSR310
+     * Add-on module to support JSR-310 (Java 8 Date & Time API) data types.
+     * fix: Cannot construct instance of `java.time.LocalDateTime` (no Creators, like default construct, exist): no String-argument constructor/factory method to deserialize from String value ('2000-01-01T00:00:00.000')] -->
+     *
+     * https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+     */
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.10'
+    /**
+     * JAXB API
+     * JAXB API is a set of interfaces through which client applications communicate with code generated from a schema.
+     *
+     * https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+     */
+    compile 'javax.xml.bind:jaxb-api:2.3.1'
+    /**
+     * Jackson Dataformat YAMLcommons
+     * Support for reading and writing YAML-encoded data via Jackson abstractions.
+     *
+     * https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml
+     */
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.4'
+    /**
+     * DOM Transformation
+     * Transform DOM model in JSON like structure
+     *
+     * https://github.com/igor-suhorukov/dom-transformation
+     * https://mvnrepository.com/artifact/com.github.igor-suhorukov/dom-transformation
+     */
     compile 'com.github.igor-suhorukov:dom-transformation:1.1'
+    /**
+     * Apache Commons IO
+     * The Apache Commons IO library contains utility classes, stream implementations,
+     * file filters, file comparators, endian transformation classes, and much more.
+     *
+     * https://mvnrepository.com/artifact/commons-io/commons-io
+     */
     compile 'commons-io:commons-io:2.6'
+    /**
+     * Apache Commons Lang
+     * Apache Commons Lang, a package of Java utility classes for the classes
+     * that are in java.lang's hierarchy, or are considered to be so standard as to justify existence in java.lang.
+     *
+     * https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+     */
     compile 'org.apache.commons:commons-lang3:3.10'
-    // Logger: https://mvnrepository.com/artifact/log4j/log4j
-    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    /**
+     * LOG4J
+     * The Log4j API is a logging facade that may, of course, be used with the Log4j implementation,
+     * but may also be used in front of other logging implementations such as Logback.
+     *
+     * https://mvnrepository.com/artifact/log4j/log4j
+     */
+    compile 'log4j:log4j:1.2.17'
+    /**
+     * Java Persistence API
+     * Clean-room definition of JPA APIs intended for use in developing Hibernate JPA implementation.
+     *
+     * https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
+     */
     compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
+    /**
+     * EclipseLink MOXy
+     * The EclipseLink MOXy component enables Java developers to efficiently bind Java classes to XML or JSON.
+     *
+     * https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.moxy
+     */
     compile 'org.eclipse.persistence:org.eclipse.persistence.moxy:2.7.0'
     compile 'commons-beanutils:commons-beanutils:1.9.3'
-    compileOnly 'org.projectlombok:lombok:1.16.18'
+    /**
+     * TweetNacl in Java
+     * TweetNaCl is the world's first auditable high-security cryptographic library.
+     *
+     * JitPack: https://jitpack.io/#InstantWebP2P/tweetnacl-java
+     * Git: https://github.com/InstantWebP2P/tweetnacl-java
+     */
+    implementation 'com.github.InstantWebP2P:tweetnacl-java:v1.1.2'
+    /**
+     * Blake2b
+     * Blake2b is a high performance Java implementation of the BLAKE2b cryptographic hash function
+     *
+     * JitPack: https://jitpack.io/#alphazero/Blake2b
+     * Git: https://github.com/InstantWebP2P/tweetnacl-java
+     */
+    implementation 'com.github.alphazero:Blake2b:8e1366c0e7'
+    /**
+     * Lombok
+     * Spice up your java: Automatic Resource Management, automatic generation
+     * of getters, setters, equals, hashCode and toString, and more!
+     *
+     * https://mvnrepository.com/artifact/org.projectlombok/lombok
+     */
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    /**
+     * JUnit
+     * JUnit is a unit testing framework for Java, created by Erich Gamma and Kent Beck.
+     *
+     * https://mvnrepository.com/artifact/junit/junit
+     */
     testCompile 'junit:junit:4.11'
+    /**
+     * AssertJ Fluent Assertions
+     * Rich and fluent assertions for testing for Java.
+     * Need for JUnit
+     *
+     * https://mvnrepository.com/artifact/org.assertj/assertj-core
+     */
     testCompile 'org.assertj:assertj-core:3.8.0'
 }

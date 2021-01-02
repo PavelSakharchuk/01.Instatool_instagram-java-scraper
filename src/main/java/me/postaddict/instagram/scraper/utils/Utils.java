@@ -1,4 +1,4 @@
-package me.postaddict.instagram.scraper;
+package me.postaddict.instagram.scraper.utils;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

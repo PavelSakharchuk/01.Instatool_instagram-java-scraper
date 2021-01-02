@@ -1,4 +1,4 @@
-package me.postaddict.instagram.scraper;
+package me.postaddict.instagram.scraper.client.types;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.model.Comment;
@@ -14,8 +14,8 @@ public abstract class AnonymousInsta extends StatelessInsta {
     }
 
 
-    abstract Location getLocationMediasById(String locationId, int pageCount) throws IOException;
+    public abstract Location getLocationMediasById(String locationId, int pageCount) throws IOException;
 
-    abstract PageObject<Comment> getCommentsByMediaCode(String code, int pageCount) throws IOException;
+    public abstract PageObject<Comment> getCommentsByMediaCode(String code, int pageCount) throws IOException;
 
 }

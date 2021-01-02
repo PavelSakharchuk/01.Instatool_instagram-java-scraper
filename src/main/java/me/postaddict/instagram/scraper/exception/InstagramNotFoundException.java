@@ -1,6 +1,6 @@
 package me.postaddict.instagram.scraper.exception;
 
-import me.postaddict.instagram.scraper.ErrorType;
+import me.postaddict.instagram.scraper.interceptor.ErrorType;
 
 public class InstagramNotFoundException extends InstagramException {
 

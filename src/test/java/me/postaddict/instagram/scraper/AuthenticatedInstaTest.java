@@ -2,7 +2,9 @@ package me.postaddict.instagram.scraper;
 
 import me.postaddict.instagram.scraper.client.InstaClient;
 import me.postaddict.instagram.scraper.client.InstaClientFactory;
-import me.postaddict.instagram.scraper.client.User;
+import me.postaddict.instagram.scraper.client.types.AuthenticatedInsta;
+import me.postaddict.instagram.scraper.client.types.Instagram;
+import me.postaddict.instagram.scraper.client.user.User;
 import me.postaddict.instagram.scraper.cookie.CookieHashSet;
 import me.postaddict.instagram.scraper.cookie.DefaultCookieJar;
 import me.postaddict.instagram.scraper.exception.InstagramAuthException;
@@ -16,6 +18,10 @@ import me.postaddict.instagram.scraper.model.Location;
 import me.postaddict.instagram.scraper.model.Media;
 import me.postaddict.instagram.scraper.model.PageObject;
 import me.postaddict.instagram.scraper.model.Tag;
+import me.postaddict.instagram.scraper.utils.Logger;
+import me.postaddict.instagram.scraper.utils.MediaUtil;
+import me.postaddict.instagram.scraper.utils.password.PasswordUtils;
+import me.postaddict.instagram.scraper.utils.password.WebEncryption;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.BeforeClass;
@@ -249,5 +255,16 @@ public class AuthenticatedInstaTest {
         Account account = instagram.getAccountByUsername("kevin");
         PageObject<Account> followers = instagram.getFollowers(account.getId(), 1);
         assertEquals(200, followers.getNodes().size());
+    }
+
+    @Test
+    public void testEncPassword() {
+        WebEncryption webEncryption = new WebEncryption();
+        webEncryption.setKeyId(87);
+        webEncryption.setPublicKey("8b7d77a18e7a39d43c4f06cb61186dfc4d1fa9a216295fbcd8e0b53b2aeb694b");
+        webEncryption.setVersion(10);
+
+        String encPassword = PasswordUtils.getEncPassword("YulyCheHabar1", webEncryption);
+        System.out.println(encPassword);
     }
 }
