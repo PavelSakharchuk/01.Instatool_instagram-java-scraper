@@ -137,7 +137,7 @@ public abstract class BasicInsta {
         }
 
         LOGGER.debug("Request >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        LOGGER.info(urlLog);
+        LOGGER.debug(urlLog);
         LOGGER.debug(String.format("headers:%n%s", request.headers()));
 
         Response response = null;
@@ -181,7 +181,7 @@ public abstract class BasicInsta {
     /**
      * Decodes a URL encoded string using `UTF-8`
      */
-    private static String decodeUrl(HttpUrl uri) {
+    protected static String decodeUrl(HttpUrl uri) {
         String decodedUrl = String.format("URL can't decoder: %s", uri);
         String url = uri.toString();
         try {

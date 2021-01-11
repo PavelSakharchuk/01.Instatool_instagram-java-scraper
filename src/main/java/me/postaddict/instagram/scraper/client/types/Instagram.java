@@ -28,6 +28,7 @@ import me.postaddict.instagram.scraper.request.parameters.MediaCode;
 import me.postaddict.instagram.scraper.request.parameters.TagName;
 import me.postaddict.instagram.scraper.request.parameters.UserMediaListParameter;
 import me.postaddict.instagram.scraper.request.parameters.UserParameter;
+import me.postaddict.instagram.scraper.utils.Logger;
 import me.postaddict.instagram.scraper.utils.MediaUtil;
 import me.postaddict.instagram.scraper.utils.password.PasswordUtils;
 import okhttp3.Cookie;
@@ -44,7 +45,9 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 
+// TODO: 03.01.2020: p.sakharchuk: Need to rework to SingleTone
 public class Instagram extends AuthenticatedInsta {
+    private static final Logger LOGGER = Logger.getInstance();
 
     public static final int MAX_USER_MEDIA_PAGE_SIZE = 50;
     private static final PageInfo FIRST_PAGE = new PageInfo(true, "");
@@ -107,6 +110,7 @@ public class Instagram extends AuthenticatedInsta {
                 .url(Endpoint.getAccountJsonInfoLinkByAccountId(id))
                 .header(Endpoint.REFERER, Endpoint.BASE_URL + "/")
                 .build();
+        LOGGER.info(String.format("Get Account By Id (%s): %s", id, decodeUrl(request.url())));
         Response response = executeHttpRequest(withCsrfToken(request));
         try (InputStream jsonStream = response.body().byteStream()) {
             return getAccountByUsername(getMediaByCode(mapper.getLastMediaShortCode(jsonStream)).getOwner().getUsername());
@@ -146,6 +150,7 @@ public class Instagram extends AuthenticatedInsta {
         Request request = new Request.Builder()
                 .url(Endpoint.getAccountId(username))
                 .build();
+        LOGGER.info(String.format("Get Account By User Name (%s): %s", username, decodeUrl(request.url())));
         Response response = executeHttpRequest(request);
         try (InputStream jsonStream = response.body().byteStream()) {
             return mapper.mapAccount(jsonStream);
@@ -173,7 +178,7 @@ public class Instagram extends AuthenticatedInsta {
         Request request = new Request.Builder()
                 .url(url + "/?__a=1")
                 .build();
-
+        LOGGER.info(String.format("Get Media By Url (%s): %s", url, decodeUrl(request.url())));
         Response response = executeHttpRequest(request);
         try (InputStream jsonStream = response.body().byteStream()) {
             return mapper.mapMedia(jsonStream);
