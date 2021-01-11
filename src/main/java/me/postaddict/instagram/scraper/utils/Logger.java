@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 public class Logger {
 
     private static final ThreadLocal<Logger> instancePull = ThreadLocal.withInitial(() -> null);
-    private static org.apache.log4j.Logger LOG4J = LogManager.getLogger(Logger.class);
-    private static int rpStrLength = 120;
-    private static ThreadLocal<String> testIdCache = ThreadLocal.withInitial(() -> null);
+    private static final org.apache.log4j.Logger LOG4J = LogManager.getLogger(Logger.class);
+    private static final int rpStrLength = 120;
+    private static final ThreadLocal<String> testIdCache = ThreadLocal.withInitial(() -> null);
     private List<Object> collectionLogs = Collections.synchronizedList(new ArrayList<>());
 
 
@@ -40,6 +40,16 @@ public class Logger {
         int msgLength = message.length();
         message = message.length() < rpStrLength ? message + String.format("%1$" + (rpStrLength - msgLength) + "s", " ") : message;
         LOG4J.info(addThreadIdToMessage(String.format("%n%n >>>>>> %s <<<<<< %n", message)));
+        return message;
+    }
+
+    /**
+     * Logging a sub-step number
+     */
+    public String subStep(String message) {
+        int msgLength = message.length();
+        message = message.length() < rpStrLength ? message + String.format("%1$" + (rpStrLength - msgLength) + "s", " ") : message;
+        LOG4J.info(addThreadIdToMessage(String.format("%n >>>>>> %s <<<<<<", message)));
         return message;
     }
 
