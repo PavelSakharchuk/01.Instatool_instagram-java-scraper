@@ -15,6 +15,8 @@ public class Account {
     private long id;
     @Column(name = "username", nullable = false)
     private String username;
+    private Integer followedBy;
+    private Integer follows;
     private String fullName;
     private Boolean isPrivate;
     private Boolean isVerified;
@@ -22,8 +24,6 @@ public class Account {
     private String biography;
     @Column(name = "external_url", length = 4096)
     private String externalUrl;
-    private Integer followedBy;
-    private Integer follows;
     private String blockedByViewer;
     private Boolean countryBlock;
     @Transient
